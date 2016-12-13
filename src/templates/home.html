@@ -1,0 +1,128 @@
+    {% load staticfiles %}
+
+    <html>
+
+    <head>
+        <title>Chat Panel</title>
+         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Latest compiled and minified CSS -->
+        
+        <link rel="stylesheet" href="{% static 'chat.css' %}">
+        <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'style.min.css' %}">
+        
+        <!-- jQuery library -->
+        
+        
+    </head>
+    <body>
+    <style type="text/css">
+        .direct-chat-messages {
+             overflow-y: scroll;
+             height: 450px;
+            
+        }
+
+    </style>
+        <div class="col-md-3">
+          <!-- DIRECT CHAT PRIMARY -->
+          <div class="box box-primary direct-chat direct-chat-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Direct Chat</h3>
+
+              <div class="box-tools pull-right">
+                <span data-toggle="tooltip" title="3 New Messages" class="badge bg-light-blue">3</span>
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle">
+                  <i class="fa fa-comments"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div id="msg-list-div" class="box-body">
+              <!-- Conversations are loaded here -->
+              <div  id="msg-list" class="direct-chat-messages ">
+                <!-- Message. Default to the left -->
+
+                 {% for obj in chat %}
+                 {% if not obj.user == request.user %}
+                <div class="direct-chat-msg">
+                  <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name pull-left">{{ obj.user }}</span>
+                    <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+                  </div>
+                  <!-- /.direct-chat-info -->
+                  <img class="direct-chat-img" src="{% static 'img/2.jpg' %}" alt="Message User Image"><!-- /.direct-chat-img -->
+                  <div class="direct-chat-text">
+                    {{ obj.message }}
+                  </div>
+                  <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
+                {% else %}
+
+                <!-- Message to the right -->
+                <div class="direct-chat-msg right">
+                  <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name pull-right">{{ obj.user }}</span>
+                    <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+                  </div>
+                  <!-- /.direct-chat-info -->
+                  <img class="direct-chat-img" src="{% static 'img/1.jpg' %}" alt="Message User Image"><!-- /.direct-chat-img -->
+                  <div class="direct-chat-text" title = "{{ obj.user }} posted this">
+                    {{ obj.message }}
+                  </div>
+                  <!-- /.direct-chat-text -->
+                </div>
+                {% endif %}
+                <!-- /.direct-chat-msg -->
+                {% endfor %}
+                 <script>
+                    var chatlist = document.getElementById('msg-list-div');
+                    chatlist.scrollTop = chatlist.scrollHeight;
+                </script>
+              </div>
+              <!--/.direct-chat-messages-->
+
+             
+            </div>
+            </div>
+           
+            <!-- /.box-body -->
+           
+              
+<form id = "chat-form" method="post" action="/post/">
+        <div class="input-group">
+            <input type="text" id="chat-msg" name="chat-msg" class="form-control" title="What do you want to say?"/>
+            <span class="input-group-btn">
+                <input class="btn btn-success" id="send" type="submit" value="Send"/>
+            </span>
+        </div>
+    </form>
+
+
+
+ </div>
+           
+
+            <!-- /.box-footer-->
+        
+          <!--/.direct-chat -->
+       
+
+    </body>
+        <script src="{% static 'jquery-2.2.3.min.js' %}"></script>
+        <script src="{% static 'bootstrap.min.js' %}"></script>
+       <script src="{% static 'chat.js' %}"></script>
+        
+
+    </html>
+
+
+
+
+
