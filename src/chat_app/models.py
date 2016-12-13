@@ -7,5 +7,5 @@ class Chat(models.Model):
     user = models.ForeignKey(User)
     message = models.CharField(max_length=200)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.message
