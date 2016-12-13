@@ -25,6 +25,9 @@
              height: 450px;
             
         }
+        .box-body{
+          height:450px;
+        }
 
     </style>
         <div class="col-md-3">
@@ -34,7 +37,7 @@
               <h3 class="box-title">Direct Chat</h3>
 
               <div class="box-tools pull-right">
-                <span data-toggle="tooltip" title="3 New Messages" class="badge bg-light-blue">3</span>
+                <span data-toggle="tooltip" title="3 New Messages" class="badge bg-light-blue">{{ chat.count }}</span>
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
                 <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle">
@@ -43,11 +46,11 @@
               </div>
             </div>
             <!-- /.box-header -->
-            <div id="msg-list-div" class="box-body">
+            <div class="box-body">
               <!-- Conversations are loaded here -->
-              <div  id="msg-list" class="direct-chat-messages ">
+              <div  id="msg-list-div" class="direct-chat-messages ">
                 <!-- Message. Default to the left -->
-
+                <div id="msg-list">
                  {% for obj in chat %}
                  {% if not obj.user == request.user %}
                 <div class="direct-chat-msg">
@@ -85,6 +88,7 @@
                     var chatlist = document.getElementById('msg-list-div');
                     chatlist.scrollTop = chatlist.scrollHeight;
                 </script>
+                </div>
               </div>
               <!--/.direct-chat-messages-->
 
